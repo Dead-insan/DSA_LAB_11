@@ -1,0 +1,103 @@
+//Write a C++ program to manually construct a simple Binary Tree (not a Binary Search Tree) with at least 5 nodes. 
+//Each node should contain an integer value.
+//Once the tree is constructed, implement the following recursive traversal functions:
+//• In-order Traversal
+//• Pre-order Traversal
+//• Post-order Traversal
+//The program should output the elements of the tree in all three traversal orders.
+
+
+#include <iostream>
+using namespace std;
+
+struct node {
+    int data;
+    node* left;
+    node* right;
+};
+
+struct tree {
+    node* root = NULL;
+
+private:
+    node* inserting(int data, node* root) {
+        if (root == NULL) {
+            node* temp = new node;
+            temp->data = data;
+            temp->right = NULL;
+            temp->left = NULL;
+            return temp;
+        } else if (root->left == NULL) {
+            node* temp = new node;
+            temp->data = data;
+            temp->right = NULL;
+            temp->left = NULL;
+            root->left = temp;
+            return root;
+        } else {
+            node* temp = new node;
+            temp->data = data;
+            temp->right = NULL;
+            temp->left = NULL;
+            root->right = temp;
+            return root;
+        }
+    }
+
+    void inorder(node* root) {
+        if (root != NULL) {
+            inorder(root->left);
+            cout << " Value: " << root->data << endl;
+            inorder(root->right);
+        }
+    }
+
+    void postorder(node* root) {
+        if (root != NULL) {
+            postorder(root->left);
+            postorder(root->right);
+            cout << " Value: " << root->data << endl;
+        }
+    }
+
+    void pretorder(node* root) {
+        if (root != NULL) {
+            cout << " Value: " << root->data << endl;
+            pretorder(root->left);
+            pretorder(root->right);
+        }
+    }
+
+public:
+    void insert(int data) {
+        root = inserting(data, root);
+    }
+
+    void showInorder() {
+        inorder(root);
+    }
+
+    void showPreorder() {
+        pretorder(root);
+    }
+
+    void showPostorder() {
+        postorder(root);
+    }
+};
+
+int main() {
+    tree t;
+
+    t.insert(1);
+    t.insert(2);
+    t.insert(3);
+    t.insert(4);
+    t.insert(5);
+
+    t.showInorder();
+    t.showPreorder();
+    t.showPostorder();
+
+    return 0;
+}
