@@ -1,0 +1,64 @@
+/*Write a C++ program to implement a Binary Search Tree (BST) using insertion function.
+Your program should:
+• Allow insertion of integer values into the BST based on the BST property.
+• Implement in-order traversal function to display the elements of the BST in ascending order.*/
+#include <iostream>
+using namespace std;
+
+struct node {
+    int data;
+    node* left;
+    node* right;
+};
+
+struct tree {
+    node* root = NULL;
+
+private:
+    node* inserting(int data, node* root) {
+        if (root == NULL) {
+            node* temp = new node;
+            temp->data = data;
+            temp->right = NULL;
+            temp->left = NULL;
+            return temp;
+        }
+        else if (data < root->data) {
+            root->left = inserting(data, root->left);
+        } else {
+            root->right = inserting(data, root->right);
+        }
+        return root;
+    }
+
+    void inorder(node* root) {
+        if (root != NULL) {
+            inorder(root->left);
+            cout << " Value: " << root->data << endl;
+            inorder(root->right);
+        }
+    }
+
+public:
+    void insert(int data) {
+        root = inserting(data, root);
+    }
+
+    void showInorder() {
+        inorder(root);
+    }
+};
+
+int main() {
+    tree t;
+
+    t.insert(1);
+    t.insert(2);
+    t.insert(3);
+    t.insert(4);
+    t.insert(5);
+
+    t.showInorder();
+
+    return 0;
+}
